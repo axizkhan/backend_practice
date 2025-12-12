@@ -1,0 +1,22 @@
+{
+  "name": "node23",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "volta": {
+    "node": "24.12.0",
+    "npm": "9.9.4"
+  },
+  "bundleDependencies": [
+    "express"
+  ],
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
