@@ -1,26 +1,45 @@
 import express from 'express'
-import {Worker} from "node:worker_threads";
-import { ThreadPool } from './ThreadPool.js';
+
+// import { console } from 'node:inspector';
 
 
 const app=express();
 
-const threadPool=new ThreadPool(50,"./worker.js")
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // (for JSON requests)
+
+// middleware for plain text
+app.use(express.text());
 
 
-app.get("/",async (req,res)=>{
+
+
+
+app.post("/",async (req,res)=>{
  
-   const result=await threadPool.run(10);
-   res.send(result);
+ 
+     let chunks = [];
+     console.log(req.body);
+
+  req.on('data', chunk => {chunks.push(chunk)
+    // console.log(chunk);
+
+  });
+  req.on('end', () => {
+    const buffer = Buffer.concat(chunks);
+    console.log(buffer);
+
+    // process buffer
+  
+  });
+  
+
      
     
-    // console.log(new Date().getHours(),":",new Date().getMinutes(),new Date().getSeconds(),new Date().getMilliseconds(),"arival time");
-    // setTimeout(()=>{
-    //     console.log(new Date().getHours(),":",new Date().getMinutes(),new Date().getSeconds(),new Date().getMilliseconds(),"reposnse sending time");
-    //     res.send("Your Web Page");
-    // },5000);
 
-})
+      res.send('OK');
+
+});
 
 app.listen(5050,()=>{
     console.log("listining to port 5050");
